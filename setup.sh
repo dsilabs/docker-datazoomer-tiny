@@ -10,8 +10,9 @@ mkdir \
         web/themes \
         web/www \
         web/www/static \
+    source \
+    source/libs \
     lib \
-    libs \
     jobs \
     log \
     data
@@ -29,24 +30,24 @@ ln -s /work/libs/datazoomer/zoom
 
 # setup the default theme
 cd /work/web/themes
-ln -s /work/libs/datazoomer/themes/default
+ln -s /work/source/libs/datazoomer/themes/default
 
 # setup apache
 cd /etc/apache2/sites-enabled
 rm -f 000-default*
-ln -s /work/libs/datazoomer/setup/apache/zoom zoom.conf
+ln -s /work/source/libs/datazoomer/setup/apache/zoom zoom.conf
 sed -i'' 's/Listen 80/ServerName localhost\n\nlisten 80/' /etc/apache2/ports.conf
 
 # setup datazoomer config files
 echo -e "[sites]\\npath=/work/web/sites" > /work/dz.conf
 echo -e "[sites]\\npath=/work/web/sites" > /work/web/dz.conf
-cp /work/libs/datazoomer/sites/default/site.ini /work/web/sites/default/site.ini
+cp /work/source/libs/datazoomer/sites/default/site.ini /work/web/sites/default/site.ini
 sed -i'' 's|^path=/work/source/libs/datazoomer/apps|path=/work/libs/datazoomer/apps|' /work/web/sites/default/site.ini
 
 # setup the www server folder
 cd /work/web/www/static
-ln -s /work/libs/datazoomer/setup/www/static/dz
+ln -s /work/source/libs/datazoomer/setup/www/static/dz
 cd ..
-ln -s /work/libs/datazoomer/setup/www/index.py
-chmod +x /work/libs/datazoomer/setup/www/index.py
+ln -s /work/source/libs/datazoomer/setup/www/index.py
+chmod +x /work/source/libs/datazoomer/setup/www/index.py
 
