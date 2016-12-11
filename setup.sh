@@ -1,36 +1,33 @@
 echo Setting up
 
-# setup work directory
-cd /work
+# configure directories
 mkdir \
-    web \
-        web/apps \
-        web/sites \
-        web/sites/default \
-        web/themes \
-        web/www \
-        web/www/static \
-    source \
-    source/libs \
-    lib \
-    jobs \
-    log \
-    data
+    work \
+        work/web \
+        work/web/apps \
+        work/web/sites \
+        work/web/sites/default \
+        work/web/themes \
+        work/web/www \
+        work/web/www/static \
+    work/source \
+    work/source/libs \
+    work/lib \
+    work/jobs \
+    work/log \
+    work/data \
+    work/setup
 
-# set the python path to point the lib folder which is
-# where we install datazoomer related python scripts
+# put libraries on the python path
 echo /work/lib > dsi.pth
 mv dsi.pth /usr/local/lib/python2.7/dist-packages
 
-# get a copy of datazoomer from github
-cd /work/libs
-git clone https://github.com/dsilabs/datazoomer.git
-cd /work/lib
-ln -s /work/libs/datazoomer/zoom
+# install datazoomer library
+git clone https://github.com/dsilabs/datazoomer.git /work/source/libs/datazoomer
+ln -s /work/source/libs/datazoomer/zoom /work/lib
 
 # setup the default theme
-cd /work/web/themes
-ln -s /work/source/libs/datazoomer/themes/default
+ln -s /work/source/libs/datazoomer/themes/default /work/web/themes
 
 # setup apache
 cd /etc/apache2/sites-enabled
@@ -42,12 +39,9 @@ sed -i'' 's/Listen 80/ServerName localhost\n\nlisten 80/' /etc/apache2/ports.con
 echo -e "[sites]\\npath=/work/web/sites" > /work/dz.conf
 echo -e "[sites]\\npath=/work/web/sites" > /work/web/dz.conf
 cp /work/source/libs/datazoomer/sites/default/site.ini /work/web/sites/default/site.ini
-sed -i'' 's|^path=/work/source/libs/datazoomer/apps|path=/work/libs/datazoomer/apps|' /work/web/sites/default/site.ini
 
 # setup the www server folder
-cd /work/web/www/static
-ln -s /work/source/libs/datazoomer/setup/www/static/dz
-cd ..
-ln -s /work/source/libs/datazoomer/setup/www/index.py
+ln -s /work/source/libs/datazoomer/setup/www/static/dz /work/web/www/static
+ln -s /work/source/libs/datazoomer/setup/www/index.py /work/web/www
 chmod +x /work/source/libs/datazoomer/setup/www/index.py
 

@@ -42,18 +42,16 @@ RUN pip install \
 run pip install -Iv passlib==1.6.2
 
 
-# configure scripts
-RUN mkdir /work
-RUN mkdir /work/setup
-ADD setup.sh /work/setup/setup.sh
-ADD start.sh /work/setup/start.sh
+# upload scripts
+ADD setup.sh /tmp/setup.sh
+ADD start.sh /tmp/start.sh
 
 
 # run the final setup
-RUN /bin/bash /work/setup/setup.sh
+RUN /bin/bash /tmp/setup.sh
 
 
 # run the server
 EXPOSE 80
-CMD ["/bin/bash", "/work/setup/start.sh"]
+CMD ["/bin/bash", "/tmp/start.sh"]
 
