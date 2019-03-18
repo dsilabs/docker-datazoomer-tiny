@@ -24,6 +24,7 @@ mv dsi.pth /usr/local/lib/python2.7/dist-packages
 
 # install datazoomer library
 git clone https://github.com/dsilabs/datazoomer.git /work/source/libs/datazoomer
+pip install -r /work/source/libs/datazoomer/requirements.txt
 ln -s /work/source/libs/datazoomer/zoom /work/lib
 
 # setup the default theme
@@ -35,10 +36,21 @@ rm -f 000-default*
 ln -s /work/source/libs/datazoomer/setup/apache/zoom zoom.conf
 sed -i'' 's/Listen 80/ServerName localhost\n\nlisten 80/' /etc/apache2/ports.conf
 
+apt-get install vim
+
 # setup datazoomer config files
 echo -e "[sites]\\npath=/work/web/sites" > /work/dz.conf
 echo -e "[sites]\\npath=/work/web/sites" > /work/web/dz.conf
 cp /work/source/libs/datazoomer/sites/default/site.ini /work/web/sites/default/site.ini
+mkdir /work/web/sites/localhost
+cat <<EOT | tee "/work/web/sites/localhost/site.ini"
+[database]
+engine=mysql
+dbname=zoomdata
+dbhost=localhost
+dbuser=zoomuser
+dbpass=zoompass
+EOT
 
 # setup the www server folder
 ln -s /work/source/libs/datazoomer/setup/www/static/dz /work/web/www/static
