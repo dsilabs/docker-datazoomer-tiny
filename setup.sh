@@ -57,3 +57,9 @@ ln -s /work/source/libs/datazoomer/setup/www/static/dz /work/web/www/static
 ln -s /work/source/libs/datazoomer/setup/www/index.py /work/web/www
 chmod +x /work/source/libs/datazoomer/setup/www/index.py
 
+# create initial database
+service mysql start
+echo "create database zoomdata" | mysql -u root -proot
+mysql -u root -proot zoomdata < /work/source/libs/datazoomer/setup/database/setup_mysql.sql
+mysql -u root -proot -e "create user zoomuser identified by 'zoompass'"
+mysql -u root -proot -e "grant all on zoomdata.* to zoomuser@'%'"
