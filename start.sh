@@ -3,4 +3,4 @@
 service mysql start
 
 # start apache
-/usr/sbin/apache2ctl -D FOREGROUND
+/usr/sbin/apache2ctl
