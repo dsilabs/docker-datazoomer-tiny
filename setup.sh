@@ -43,14 +43,7 @@ echo -e "[sites]\\npath=/work/web/sites" > /work/dz.conf
 echo -e "[sites]\\npath=/work/web/sites" > /work/web/dz.conf
 cp /work/source/libs/datazoomer/sites/default/site.ini /work/web/sites/default/site.ini
 mkdir /work/web/sites/localhost
-cat <<EOT | tee "/work/web/sites/default/site.ini"
-[database]
-engine=mysql
-dbname=zoomdata
-dbhost=localhost
-dbuser=zoomuser
-dbpass=zoompass
-EOT
+cat default-site.ini.template | tee "/work/web/sites/default/site.ini"
 
 # setup the www server folder
 ln -s /work/source/libs/datazoomer/setup/www/static/dz /work/web/www/static
