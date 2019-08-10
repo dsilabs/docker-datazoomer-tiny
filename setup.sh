@@ -102,7 +102,7 @@ ln -s /work/source/libs/datazoomer/setup/www/index.py /work/web/www
 chmod +x /work/source/libs/datazoomer/setup/www/index.py
 
 # copy apps
-cp -r /work/source/libs/datazoomer/apps /work/web/apps
+cp -r /work/source/libs/datazoomer/apps/* /work/web/apps
 
 # create initial database
 service mysql start
