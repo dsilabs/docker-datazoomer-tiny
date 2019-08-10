@@ -41,8 +41,6 @@ apt-get install vim
 # setup datazoomer config files
 echo -e "[sites]\\npath=/work/web/sites" > /work/dz.conf
 echo -e "[sites]\\npath=/work/web/sites" > /work/web/dz.conf
-cp /work/source/libs/datazoomer/sites/default/site.ini /work/web/sites/default/site.ini
-mkdir /work/web/sites/localhost
 cp default-site.ini.template /work/web/sites/default/site.ini
 
 # setup the www server folder
