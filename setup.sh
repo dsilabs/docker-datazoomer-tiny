@@ -65,7 +65,7 @@ destroy=1
 index=content
 home=home
 login=login
-path=./apps
+path=/work/web/apps
 
 [data]
 
