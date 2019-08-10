@@ -41,7 +41,60 @@ apt-get install vim
 # setup datazoomer config files
 echo -e "[sites]\\npath=/work/web/sites" > /work/dz.conf
 echo -e "[sites]\\npath=/work/web/sites" > /work/web/dz.conf
-cp default-site.ini.template /work/web/sites/default/site.ini
+cat <<'EOF' >> /work/web/sites/default/site.ini
+[site]
+name=Zoom
+slogan=Ridiculously Rapid Application Development
+owner_name=Company Name
+owner_email=owner@yoursite.com
+owner_url=http://www.yourcompanysite.com
+admin_email=admin@yoursite.com
+register_email=register@yoursite.com
+bug_email=support@yoursite.com
+
+[users]
+default=guest
+administrator_group=administrators
+developer_group=developers
+
+[sessions]
+use_cookies=1 
+destroy=1     
+
+[apps]
+index=content
+home=home
+login=login
+path=./apps
+
+[data]
+
+[theme]
+name=default
+url=/work/web/themes
+
+[system]
+
+[log]
+
+[error]
+
+[database]
+engine=mysql
+dbname=zoomdata
+dbhost=localhost
+dbuser=zoomuser
+dbpass=zoompass
+
+[mail]
+delivery=immediate
+smtp_host=
+smtp_port=587
+smtp_user=
+smtp_passwd=
+logo=http://www.yoursite.com/mail-logo.png
+from_addr=alerts@yoursite.com
+EOF
 
 # setup the www server folder
 ln -s /work/source/libs/datazoomer/setup/www/static/dz /work/web/www/static
